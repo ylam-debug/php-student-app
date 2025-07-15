@@ -6,20 +6,17 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted  # utilise ton runner local sur Mac
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t php-student-app -f docker/php/Dockerfile .
+      - name: Build Docker images
+        run: docker-compose build
 
-      - name: Stop and remove existing container (if any)
-        run: |
-          docker stop php-student-app || true
-          docker rm php-student-app || true
+      - name: Stop previous containers (if any)
+        run: docker-compose down || true
 
-      - name: Run Docker container
-        run: |
-          docker run -d --name php-student-app -p 8080:80 php-student-app
+      - name: Run app with Docker Compose
+        run: docker-compose up -d

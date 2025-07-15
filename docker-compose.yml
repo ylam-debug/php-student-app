@@ -5,21 +5,26 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: php-app
     ports:
       - "8080:80"
     depends_on:
       - mysql
-    volumes:
-      - ./html:/var/www/html
-      - ./src:/var/www/html
+    networks:
+      - backend
 
   mysql:
-    image: mysql:8.0
-    container_name: mysql-db
+    image: mysql:5.7
+    restart: always
     environment:
+      MYSQL_DATABASE: etudiants
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "3306:3306"
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:

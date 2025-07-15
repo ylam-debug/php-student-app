@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+  <meta charset="utf-8">
   <title>Inscription Étudiant</title>
 </head>
 <body>
-  <h2>Formulaire d'inscription d'un étudiant</h2>
-  <form action="/register.php" method="POST">
-    Nom: <input type="text" name="nom" required><br><br>
-    Prénom: <input type="text" name="prenom" required><br><br>
-    Email: <input type="email" name="email" required><br><br>
+  <h2>Formulaire d'inscription</h2>
+  <form action="register.php" method="post">
+    Nom: <input type="text" name="nom"><br>
+    Prénom: <input type="text" name="prenom"><br>
+    Email: <input type="email" name="email"><br>
     <input type="submit" value="S'inscrire">
   </form>
 </body>
