@@ -1,25 +1,21 @@
 <?php
-$servername = "mysql";
-$username = "root";
-$password = "rootpassword";
-$dbname = "etudiants";
+$mysqli = new mysqli("mysql", "root", "rootpassword", "etudiants");
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Échec de la connexion : " . $conn->connect_error);
+if ($mysqli->connect_error) {
+    die("Connexion échouée : " . $mysqli->connect_error);
 }
 
-$nom = $_POST['nom'] ?? '';
-$prenom = $_POST['prenom'] ?? '';
-$email = $_POST['email'] ?? '';
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$email = $_POST['email'];
 
-$sql = "INSERT INTO students (nom, prenom, email) VALUES ('$nom', '$prenom', '$email')";
+$sql = "INSERT INTO etudiant (nom, prenom, email) VALUES ('$nom', '$prenom', '$email')";
 
-if ($conn->query($sql) === TRUE) {
+if ($mysqli->query($sql) === TRUE) {
     echo "Inscription réussie !";
 } else {
-    echo "Erreur : " . $sql . "<br>" . $conn->error;
+    echo "Erreur : " . $sql . "<br>" . $mysqli->error;
 }
 
-$conn->close();
+$mysqli->close();
 ?>
